@@ -5,7 +5,7 @@ sudo lsof -i -P -n - show all processes
 killall <process_name> - kill all process with name
 
 
-INFLUX_DB SHELL
+#INFLUX_DB SHELL
 
 > SHOW SERIES ON DATA_BASE_NAME - show all the keys of fields (if previusly wasn't used 'USE DATABASE_NAME')
 
@@ -21,8 +21,15 @@ INFLUX_DB SHELL
 
 > SHOW FIELD JEYS ON DB_NAME -  This is the column which stores the actual data you want to measure. Like response time of a page.
 
+#InfluxDb .env
+HTTPS_PROXY=<http>[:port]
+https://docs.influxdata.com/influxdb/v1.7/administration/config/#gomaxprocs-environment-variable
 
-Docker:
+#influxdb .conf file
+https://docs.w3cub.com/influxdata/influxdb/v1.3/administration/config/#dir-var-lib-influxdb-data
+
+
+#Run docker containers manually
 
 docker run --rm -d \-p 3000:3000 \-v grafana:/var/lib/grafana \--name=grafana \grafana/grafana
  
@@ -33,6 +40,8 @@ docker exec -it influxdb influx - to run shell inside influxdb
 docker volume ls - show stored data
 
 
+
+#Docker grafana chronograf influxdb 
 docker run -d \
   --name docker-influxdb-grafana \
   -p 3003:3003 \
@@ -41,3 +50,9 @@ docker run -d \
   -v /path/for/influxdb:/var/lib/influxdb \
   -v /path/for/grafana:/var/lib/grafana \
   philhawthorne/docker-influxdb-grafana:latest
+
+
+
+
+
+
