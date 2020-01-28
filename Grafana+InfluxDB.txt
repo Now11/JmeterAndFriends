@@ -24,9 +24,9 @@ INFLUX_DB SHELL
 
 Docker:
 
-docker run -d \-p 3000:3000 \-v grafana:/var/lib/grafana \--name=grafana \grafana/grafana
+docker run --rm -d \-p 3000:3000 \-v grafana:/var/lib/grafana \--name=grafana \grafana/grafana
  
-docker run -d \-p 8086:8086 \-v influxdb:/var/lib/influxdb \--name=influxdb \-e INFLUXDB_DB=test \influxdb
+docker run --rm -d \-p 8086:8086 \-v influxdb:/var/lib/influxdb \--name=influxdb \-e INFLUXDB_DB=test INFLUXDB_ADMIN_USER=true INFLUXDB_USER=admin INFLUXDB_PASSWORD=admin \influxdb
 
 docker exec -it influxdb influx - to run shell inside influxdb
 
