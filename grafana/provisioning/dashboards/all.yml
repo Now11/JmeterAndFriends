@@ -7,6 +7,6 @@ providers:
     folder: ""
     type: file
     editable: true
-    updateIntervalSeconds: 10
+    updateIntervalSeconds: 5
     options:
       path: /var/lib/grafana/dashboards
