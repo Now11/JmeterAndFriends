@@ -1,10 +1,9 @@
-FROM grafana/grafana:6.4.1
+FROM grafana/grafana:latest
 
-WORKDIR /root
+# Set work directory to /grafana
+WORKDIR /grafana
 
-
-# Configure Grafana
-COPY datasources ./datasources
-COPY grafana/grafana.ini /etc/grafana/grafana.ini
-
-RUN ["chmod", "+x", "entrypoint.sh"]
+# Copy configuration file, provisioning and dashboard folders to container
+COPY grafana.ini /etc/grafana/grafana.ini
+COPY ./provisioning /etc/grafana/provisioning
+COPY ./dashboards /var/lib/grafana/dashboards

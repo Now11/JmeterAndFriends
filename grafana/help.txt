@@ -1,0 +1,52 @@
+linux shell:
+
+sudo lsof -i -P -n - show all processes
+
+killall <process_name> - kill all process with name
+
+
+#INFLUX_DB SHELL
+
+> SHOW SERIES ON DATA_BASE_NAME - show all the keys of fields (if previusly wasn't used 'USE DATABASE_NAME')
+
+> SHOW DATABASES - show all DB
+
+> SHOW MEASUREMENTS ON DB_NAME - show ameasurements if table, equivalent to table in MySQL
+
+> SHOW SERIES ON DB_NAME - each and every record of measurements (it is like roww of the table)
+
+> SHOW TAG VALUES ON DB_NAME - Returns the list of tag values for the specified tag key(s) in the database.
+
+> SHOW TAG KEYS ON DB_NAME - Optional column of the table. It is indexed column for faster search
+
+> SHOW FIELD JEYS ON DB_NAME -  This is the column which stores the actual data you want to measure. Like response time of a page.
+
+#InfluxDb .env
+HTTPS_PROXY=<http>[:port]
+https://docs.influxdata.com/influxdb/v1.7/administration/config/#gomaxprocs-environment-variable
+
+#influxdb .conf file
+https://docs.w3cub.com/influxdata/influxdb/v1.3/administration/config/#dir-var-lib-influxdb-data
+
+
+#Run docker containers manually
+
+docker run --rm -d \-p 3000:3000 \-v grafana:/var/lib/grafana \--name=grafana \grafana/grafana
+ 
+docker run --rm -d \-p 8086:8086 \-v influxdb:/var/lib/influxdb \--name=influxdb \-e INFLUXDB_DB=test INFLUXDB_ADMIN_USER=true INFLUXDB_USER=admin INFLUXDB_PASSWORD=admin \influxdb
+
+docker exec -it influxdb influx - to run shell inside influxdb
+
+docker volume ls - show stored data
+
+
+
+#Docker grafana chronograf influxdb 
+docker run -d \
+  --name docker-influxdb-grafana \
+  -p 3003:3003 \
+  -p 3004:8083 \
+  -p 8086:8086 \
+  -v /path/for/influxdb:/var/lib/influxdb \
+  -v /path/for/grafana:/var/lib/grafana \
+  philhawthorne/docker-influxdb-grafana:latest
