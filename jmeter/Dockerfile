@@ -19,11 +19,6 @@ ENV JMETER_BIN ${JMETER_HOME}/bin
 RUN wget -O /jmeter/apache-jmeter.tgz "http://mirror.its.dal.ca/apache//jmeter/binaries/apache-jmeter-${JMETER_VERSION}.tgz" \
 	&& tar xvzf apache-jmeter.tgz
 
-# Edit jmeter.properties, point to correct user.properties, use Rhino implementation of Javascript (Nashorn will be deprecated)
-ENV testDir /jmeter/test
-RUN sed -i "s|user.properties=user.properties|user.properties=${testDir}/user.properties|g; \
-	    s|#javascript.use_rhino=false|javascript.use_rhino=true|g" ${JMETER_BIN}/jmeter.properties
-
 # Make entrypoint.sh executable
 RUN chmod +x ./entrypoint.sh
 
