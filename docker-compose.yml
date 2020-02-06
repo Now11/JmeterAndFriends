@@ -2,28 +2,17 @@ version: "3.7"
 services:
   influxdb:
     image: influxdb:1.7.9-alpine
-    container_name: influxdb_test
+    container_name: influxdb_load
     env_file:
       - "influxdb.env"
     ports:
       - "8086:8086"
 
-  jmeter:
-    build:
-      context: "jmeter"
-      args:
-        - jmeterVersion=5.2.1
-    environment:
-      - JMETER_TEST=test_plan.jmx
-    depends_on:
-      - influxdb
-
   grafana:
     build:
       context: "grafana"
-    container_name: grafana_test
+    container_name: grafana_load
     ports:
       - "3000:3000"
     depends_on:
       - influxdb
-      - jmeter
